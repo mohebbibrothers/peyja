@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>پیجا · در حال انتقال…</title>
+    <script>
+      // SPA fallback for GitHub Pages: rewrite path to root while preserving it via hash,
+      // then the app reads it back in index.html.
+      (function () {
+        var base = '/peyja/';
+        var path = window.location.pathname;
+        // If we're hosted at root instead of /peyja/, auto-detect.
+        if (path.indexOf('/peyja/') !== 0) {
+          var segs = path.split('/').filter(Boolean);
+          base = segs.length ? '/' + segs[0] + '/' : '/';
+        }
+        var target = base + '?p=' + encodeURIComponent(path.replace(base, '') || '') +
+          window.location.search + window.location.hash;
+        window.location.replace(target);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>

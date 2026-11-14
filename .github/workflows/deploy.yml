@@ -18,7 +18,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -26,28 +27,18 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install
+      - name: Install dependencies
         run: npm ci
 
-      - name: Copy benchmark data
-        run: |
-          mkdir -p tehran_beauty_instagram_benchmark
-          # In GitHub CI we expect the data to live in public/data already committed.
-          # If benchmark dir is absent, skip data build and use committed JSON.
-          if [ -f ../tehran_beauty_instagram_benchmark/deliverables/golden_dataset_62_final.xlsx ]; then
-            cp -r ../tehran_beauty_instagram_benchmark tehran_beauty_instagram_benchmark
-            npm run data:build
-          else
-            echo "Benchmark data not present; using committed public/data/products.json"
-          fi
-
-      - name: Build
+      - name: Build for GitHub Pages
+        env:
+          PEYJA_BASE: /peyja/
         run: npm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload artifact
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
