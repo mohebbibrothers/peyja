@@ -1,0 +1,12 @@
+node_modules
+dist
+dist-ssr
+.vite
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+tehran_beauty_instagram_benchmark
+tsconfig.tsbuildinfo
+
